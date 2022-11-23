@@ -1,7 +1,9 @@
 {
     "name": "thinkfluent/runphp-monolog-formatter",
     "description": "Monolog JSON formatter for runphp / Google Cloud Run Toolkit",
+    "keywords": ["google cloud run", "cloud run", "stackdriver", "monolog", "logging", "log"],
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "tomwalder",
@@ -11,12 +13,14 @@
     "autoload": {
         "psr-4": {
             "ThinkFluent\\RunPHP\\Logging\\": "src/"
-        },
-        "classmap": [
-            "src/"
-        ]
+        }
     },
     "require": {
         "monolog/monolog": "^2|^3"
+    },
+    "config": {
+        "lock": false,
+        "sort-packages": true,
+        "platform-check": false
     }
 }
