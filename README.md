@@ -23,12 +23,20 @@ Monolog has changes in v3.x that are not backwards compatible with v2.x.
 ## Example Usage
 
 ```php
+use \Monolog\Level;
 use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
 use \ThinkFluent\RunPHP\Logging\StackdriverJsonFormatter;
 
-$handler = new StreamHandler('php://stderr', \Monolog\Level::Info);
+$handler = new StreamHandler('php://stderr', Level::Info);
 StackdriverJsonFormatter::applyInGoogleCloudContext($handler);
 $logger = new Logger('my-log');
 $logger->pushHandler($handler);
 ```
+
+In this sample we use `applyInGoogleCloudContext()` to only apply the JSON formatter when running in Google Cloud.
+
+Locally, this will log a more human-readable format.
+
+*Please Note* the auto-detection of GCP relies on code in from https://github.com/thinkfluent/runphp. If you're using
+this formatter outside of RunPHP images, you'll have to implement your own detection.
