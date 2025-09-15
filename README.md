@@ -27,7 +27,7 @@ use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
 use \ThinkFluent\RunPHP\Logging\StackdriverJsonFormatter;
 
-$handler = new StreamHandler('php://stderr', Logger::INFO);
+$handler = new StreamHandler('php://stderr', \Monolog\Level::Info);
 StackdriverJsonFormatter::applyInGoogleCloudContext($handler);
 $logger = new Logger('my-log');
 $logger->pushHandler($handler);
