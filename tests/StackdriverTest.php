@@ -9,18 +9,6 @@ class StackdriverTest extends TestCase
     public function testStackdriver()
     {
         $formatter = new StackdriverJsonFormatter(\Monolog\Formatter\JsonFormatter::BATCH_MODE_JSON, true);
-        //     public function __construct(
-        //        public readonly \DateTimeImmutable $datetime,
-        //        public readonly string $channel,
-        //        public readonly Level $level,
-        //        public readonly string $message,
-        //        /** @var array<mixed> */
-        //        public readonly array $context = [],
-        //        /** @var array<mixed> */
-        //        public array $extra = [],
-        //        public mixed $formatted = null,
-        //    ) {
-        //    }
         $record = new \Monolog\LogRecord(
             new \DateTimeImmutable('2024-01-01 01:02:03'),
             'channel1',
