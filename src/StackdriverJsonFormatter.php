@@ -3,6 +3,7 @@
 namespace ThinkFluent\RunPHP\Logging;
 
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 use ThinkFluent\RunPHP\Runtime;
 
 class StackdriverJsonFormatter extends \Monolog\Formatter\JsonFormatter
@@ -13,7 +14,7 @@ class StackdriverJsonFormatter extends \Monolog\Formatter\JsonFormatter
      *
      * @param AbstractProcessingHandler $handler
      */
-    public static function applyInGoogleCloudContext(AbstractProcessingHandler $handler)
+    public static function applyInGoogleCloudContext(AbstractProcessingHandler $handler): void
     {
         if(Runtime::get()->isGoogleCloud()) {
             $handler->setFormatter(new self());
@@ -23,7 +24,7 @@ class StackdriverJsonFormatter extends \Monolog\Formatter\JsonFormatter
     /**
      * {@inheritdoc}
      */
-    public function format(array $record): string
+    public function format(LogRecord $record): string
     {
         return \json_encode(
             $this->formatRecord($record)
@@ -46,22 +47,22 @@ class StackdriverJsonFormatter extends \Monolog\Formatter\JsonFormatter
     /**
      * Format a log record for Google Cloud logging. Augment as needed.
      *
-     * @param array $record
+     * @param LogRecord $record
      * @return array
      */
-    protected function formatRecord(array $record): array
+    protected function formatRecord(LogRecord $record): array
     {
         return \array_merge(
-            $record['context'],
-            $record['extra'],
+            $record->context,
+            $record->extra,
             [
-                'message' => $record['message'],
-                'severity' => $record['level_name'],
+                'message' => $record->message,
+                'severity' => $record->level->getName(),
                 'timestamp' => [
-                    'seconds' => $record['datetime']->getTimestamp(),
+                    'seconds' => $record->datetime->getTimestamp(),
                     'nanos' => 0,
                 ],
-                'channel' => $record['channel'],
+                'channel' => $record->channel,
                 'logging.googleapis.com/trace' => Runtime::get()->getTraceContext(),
             ]
         );
