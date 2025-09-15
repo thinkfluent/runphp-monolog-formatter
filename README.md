@@ -1,6 +1,8 @@
 # Monolog JSON Formatter for Google Cloud Run
 
-Designed to work with RunPHP Serverless Toolkit.
+This produces correctly formatted JSON log messages that are automatically parsed by Google Cloud Logging.
+
+Designed to work with RunPHP Serverless Toolkit, but can also run standalone.
 
 ## Advantages
 
